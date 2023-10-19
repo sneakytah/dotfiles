@@ -1,14 +1,7 @@
 {
   description = "Nix for macOS configuration";
 
-  ##################################################################################################################
-  # 
-  # Want to know Nix in details? Looking for a beginner-friendly tutorial?
-  # Check out https://github.com/ryan4yin/nixos-and-flakes-book !
-  # 
-  ##################################################################################################################
-
-  # the nixConfig here only affects the flake itself, not the system configuration!
+  # the nixConfig here only affects the flake itself, not the system configuration 
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
   };
@@ -29,21 +22,17 @@
   # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
   outputs = inputs@{ self, nixpkgs, darwin, ... }:{
-    # TODO please update the whole "your-hostname" placeholder string to your own hostname!
-    # such as darwinConfigurations.mymac = darwin.lib.darwinSystem {
     darwinConfigurations.nova = darwin.lib.darwinSystem {
-      system = "aarch64-darwin";  # change this to "aarch64-darwin" if you are using Apple Silicon
+      system = "aarch64-darwin";
       modules = [
-        ./modules/nix-core.nix
+        ./modules/core.nix
         ./modules/system.nix
         ./modules/apps.nix
-
         ./modules/host-users.nix
       ];
     };
 
     # nix code formatter
-    # TODO also change this line to "aarch64-darwin" if you are using Apple Silicon
     formatter.aarch64-darwin = nixpkgs.legacyPackages.x86_64-darwin.alejandra;
   };
 }
