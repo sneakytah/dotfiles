@@ -9,17 +9,11 @@ To Install Nix on your macOS system you can use [DeterminateSystems/nix-installe
 > [!IMPORTANT]  
 > Make sure to change the hostname to your own.
 
-First time build:
+Build:
 
 ```nix
 nix build .#darwinConfigurations.hostname.system \
  	--extra-experimental-features 'nix-command flakes'
 
  ./result/sw/bin/darwin-rebuild switch --flake .#hostname
-```
-
-Subsequent builds:
-
-```nix
-./result/sw/bin/darwin-rebuild switch --flake .#hostname
 ```
